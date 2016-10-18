@@ -1,0 +1,22 @@
+diff --git a/configure b/configure
+index 4b808f9..74a0cbe 100755
+--- a/configure
++++ b/configure
+@@ -1805,7 +1805,7 @@ int main(int argc, char *argv[]) { return foo(argv[0]);}
+ EOF
+   if compile_object "" ; then
+       if has readelf; then
+-          if readelf --syms $TMPO 2>/dev/null |grep -q "IFUNC.*foo"; then
++          if readelf --syms $TMPO 2>/dev/null |grep -q "IFUNC.*foo" && ldd $TMPO >/dev/null 2>&1; then
+               avx2_opt="yes"
+           fi
+       fi
+@@ -4972,7 +4972,7 @@ if test "$mingw32" = "yes" ; then
+     echo "CONFIG_QGA_NTDDDISK=y" >> $config_host_mak
+   fi
+   if test "$guest_agent_msi" = "yes"; then
+-    echo "QEMU_GA_MSI_ENABLED=yes" >> $config_host_mak  
++    echo "QEMU_GA_MSI_ENABLED=yes" >> $config_host_mak
+     echo "QEMU_GA_MSI_MINGW_DLL_PATH=${QEMU_GA_MSI_MINGW_DLL_PATH}" >> $config_host_mak
+     echo "QEMU_GA_MSI_WITH_VSS=${QEMU_GA_MSI_WITH_VSS}" >> $config_host_mak
+     echo "QEMU_GA_MSI_ARCH=${QEMU_GA_MSI_ARCH}" >> $config_host_mak

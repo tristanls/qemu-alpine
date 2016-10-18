@@ -28,5 +28,5 @@ QEMU from source on Alpine Linux in a Docker container.
 3. Given `${VERSION}` being current QEMU-Alpine version, build new image:
 
     ```
-    $ docker build -t qemu-alpine:${VERSION} .
+    $ docker build -t qemu-alpine:${VERSION}-1 .
     ```
