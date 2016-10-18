@@ -1,0 +1,42 @@
+diff --git a/linux-user/signal.c b/linux-user/signal.c
+index 9a4d894..13c8a81 100644
+--- a/linux-user/signal.c
++++ b/linux-user/signal.c
+@@ -77,8 +77,10 @@ static uint8_t host_to_target_signal_table[_NSIG] = {
+        host libpthread signals.  This assumes no one actually uses SIGRTMAX :-/
+        To fix this properly we need to do manual signal delivery multiplexed
+        over a single host signal.  */
++#ifdef __SIGRTMIN
+     [__SIGRTMIN] = __SIGRTMAX,
+     [__SIGRTMAX] = __SIGRTMIN,
++#endif
+ };
+ static uint8_t target_to_host_signal_table[_NSIG];
+ 
+@@ -2302,7 +2304,7 @@ struct target_rt_signal_frame {
+ #define UREG_FP        UREG_I6
+ #define UREG_SP        UREG_O6
+ 
+-static inline abi_ulong get_sigframe(struct target_sigaction *sa, 
++static inline abi_ulong get_sigframe(struct target_sigaction *sa,
+                                      CPUSPARCState *env,
+                                      unsigned long framesize)
+ {
+@@ -2717,7 +2719,7 @@ void sparc64_get_context(CPUSPARCState *env)
+     if (!lock_user_struct(VERIFY_WRITE, ucp, ucp_addr, 0)) {
+         goto do_sigsegv;
+     }
+-    
++
+     mcp = &ucp->tuc_mcontext;
+     grp = &mcp->mc_gregs;
+ 
+@@ -5195,7 +5197,7 @@ static inline int target_rt_restore_ucontext(CPUM68KState *env,
+ {
+     int temp;
+     target_greg_t *gregs = uc->tuc_mcontext.gregs;
+-    
++
+     __get_user(temp, &uc->tuc_mcontext.version);
+     if (temp != TARGET_MCONTEXT_VERSION)
+         goto badframe;
