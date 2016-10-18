@@ -26,6 +26,12 @@ RUN apk add --no-cache ${DOWNLOAD_TOOLS} && \
     NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
     make -j${NPROC}
 
+# RUN apk del ${DOWNLOAD_TOOLS}
+# RUN apk del autoconf automake bison flex gcc g++ libtool linux-headers make patch python
+# RUN rm -rf /qemu-${QEMU_VERSION}.tar.bz2 /qemu-${QEMU_VERSION}.tar.bz2.sig
+# RUN rm -rf /etc/ssl /usr/include /usr/share/man /tmp/* /var/cache/apk/* /root/.gnupg /qemu-patches
+# RUN apk info -v
+
 RUN apk del ${DOWNLOAD_TOOLS} ${BUILD_TOOLS} && \
     rm -rf /qemu-${QEMU_VERSION}.tar.bz2 /qemu-${QEMU_VERSION}.tar.bz2.sig ${RM_DIRS} && \
     apk info -v
