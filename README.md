@@ -30,3 +30,11 @@ QEMU from source on Alpine Linux in a Docker container.
     ```
     $ docker build -t qemu-alpine:${VERSION}-1 .
     ```
+
+## Releases
+
+[Current releases](https://github.com/tristanls/qemu-alpine/releases).
+
+### Policy
+
+This repository uses `QEMU_VERSION-ALPINE_VERSION-BUILD_NUMBER` version numbering scheme. `BUILD_NUMBER` is incremented every time a new release for the same `QEMU_VERSION-ALPINE_VERSION` combination is created.
