@@ -6,6 +6,9 @@ QEMU from source on Alpine Linux in a Docker container.
 
 1. Update `Dockerfile` with latest QEMU and Alpine versions:
 
+    [Latest QEMU versions](https://github.com/qemu/qemu/releases).
+    [Latest Alpine Linux versions](https://alpinelinux.org/downloads/).
+
     For example:
     ```
     FROM alpine:3.4
