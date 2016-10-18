@@ -4,7 +4,8 @@ ENV ALPINE_VERSION=3.4 QEMU_VERSION=2.7.0
 ENV VERSION=${QEMU_VERSION}-${ALPINE_VERSION}
 ENV RM_DIRS="/etc/ssl /usr/include /usr/share/man /tmp/* /var/cache/apk/* /root/.gnupg /qemu-patches"
 ENV DOWNLOAD_TOOLS="curl gnupg"
-ENV BUILD_TOOLS="autoconf automake bison flex gcc g++ libtool linux-headers make patch python"
+ENV BUILD_TOOLS="autoconf automake bison flex gcc glib-dev g++ libtool linux-headers make patch python"
+ENV RUNTIME_DEPENDENCIES="glib libstdc++ libbz2"
 
 COPY patches/${VERSION}/* /qemu-patches/
 ENV PATCHES="fcntl.patch sigevent.patch sigrtmin.patch configure.patch"
@@ -28,5 +29,6 @@ RUN apk add --no-cache ${DOWNLOAD_TOOLS} && \
     make -j${NPROC} && \
     make install && \
     apk del ${DOWNLOAD_TOOLS} ${BUILD_TOOLS} && \
+    apk add --no-cache ${RUNTIME_DEPENDENCIES} && \
     rm -rf /qemu-${QEMU_VERSION}.tar.bz2 /qemu-${QEMU_VERSION}.tar.bz2.sig /qemu-${QEMU_VERSION} ${RM_DIRS} && \
     apk info -v
